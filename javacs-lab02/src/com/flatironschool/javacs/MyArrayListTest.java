@@ -18,8 +18,12 @@ import org.junit.Test;
 
 /**
  * @author downey
+ * @param <E>
+ * @param <E>
  *
  */
+
+
 public class MyArrayListTest {
 
 	private List<Integer> mal;
@@ -143,6 +147,7 @@ public class MyArrayListTest {
 	 */
 	@Test
 	public void testIndexOf() {
+		System.out.println(mal.indexOf(1));
 		assertThat(mal.indexOf(1), is(0));
 		assertThat(mal.indexOf(2), is(1));
 		assertThat(mal.indexOf(3), is(2));
@@ -242,6 +247,9 @@ public class MyArrayListTest {
 
 		val = mal.set(2, 7);
 		assertThat(val, is(new Integer(3)));
+		
+		System.out.println(mal);
+		System.out.println(mal.set(1,5));
 
 		// return value should be 2
 		// list should be [6, 5, 7]

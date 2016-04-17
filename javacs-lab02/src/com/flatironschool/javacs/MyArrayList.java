@@ -17,7 +17,6 @@ import java.util.ListIterator;
 public class MyArrayList<E> implements List<E> {
 	int size;                    // keeps track of the number of elements
 	private E[] array;           // stores the elements
-	
 	/**
 	 * 
 	 */
@@ -61,9 +60,19 @@ public class MyArrayList<E> implements List<E> {
 	public void add(int index, E element) {
 		if (index < 0 || index > size) {
 			throw new IndexOutOfBoundsException();
+		}		
+		E[] array2 = (E[]) new Object[size+1];
+		for (int i = 0; i < index; i++){
+			array2[i] = array[i];		
 		}
-		// TODO: fill in the rest of this method
+		array2[index]= element;
+		for (int j = index+ 1; j< size; j++ ){
+			array2[j+1] = array[j];
+		}
+		array = array2;
+		size = size+ 1;
 	}
+	
 
 	@Override
 	public boolean addAll(Collection<? extends E> collection) {
@@ -111,8 +120,20 @@ public class MyArrayList<E> implements List<E> {
 
 	@Override
 	public int indexOf(Object target) {
-		// TODO: fill in this method
-		return 0;
+		if (target == null){
+			for( int i = 0; i<size; i++){
+				if (this.get(i) == null) {
+					return i;
+				}
+			}
+		}
+		for( int i = 0; i< size; i++) {
+			if (array[i].equals(target)) {
+				return i;
+			}
+				
+		}
+		return -1;
 	}
 
 	/** Checks whether an element of the array is the target.
@@ -182,8 +203,17 @@ public class MyArrayList<E> implements List<E> {
 
 	@Override
 	public E remove(int index) {
-		// TODO: fill in this method.
-		return null;
+		E[] array2 = (E[]) new Object[size+1];
+		for (int i = 0; i < index; i++){
+			array2[i] = array[i];		
+		}
+		E removed = this.get(index);
+		for (int j = index+ 1; j< size; j++ ){
+			array2[j-1] = array[j];
+		}
+		array = array2;
+		size = size- 1;
+		return removed;
 	}
 
 	@Override
@@ -202,8 +232,12 @@ public class MyArrayList<E> implements List<E> {
 
 	@Override
 	public E set(int index, E element) {
-		// TODO: fill in this method.
-		return null;
+		if (element == null){
+			throw new NullPointerException();
+		}
+		E replaced = this.get(index);
+		array[index] = element;
+		return replaced;
 	}
 
 	@Override
